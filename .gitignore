@@ -3,6 +3,9 @@
 .settings
 target
 log
+bin
+node_modules
+bower_components
 
 .DS_Store
 .AppleDouble
