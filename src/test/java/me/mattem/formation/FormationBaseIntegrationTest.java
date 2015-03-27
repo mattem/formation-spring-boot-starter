@@ -1,4 +1,4 @@
-package com.jarvis.formation;
+package me.mattem.formation;
 
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.IntegrationTest;

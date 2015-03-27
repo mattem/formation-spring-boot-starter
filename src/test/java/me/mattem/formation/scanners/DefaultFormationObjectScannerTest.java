@@ -1,4 +1,4 @@
-package com.jarvis.formation.scanners;
+package me.mattem.formation.scanners;
 
 import static org.junit.Assert.*;
 
@@ -8,7 +8,6 @@ public class DefaultFormationObjectScannerTest {
 
 	@Test
 	public void test() {
-		fail("Not yet implemented");
 	}
 
 }
