@@ -11,19 +11,13 @@ No, not necessarily. Formation tries to make good assumptions about how to gener
 ### Spring Boot Project
 Simply add the `@EnableFormation` annotation to your configuration class. 
 
-#### Options
-##### Scan a specific package or list of packages 
-
-```java
-@EnableFormation(basePackages={"com.bob.domain", "com.bob.objects"})
-```
-
-##### Include an object to be scanned
+Then include an object to be scanned
 
 ```java
 @FormationInclude
 ```
-##### Ignore a field on an object
+
+Or ignore a field on an object
 
 ```java
 @FormationExclude
@@ -37,6 +31,8 @@ _Formation_ currently has a UI helper for projects using ReactJS. To use this, s
 ```
 
 An AngularJS helper is _coming soon..._
+
+Refer to the [Formation Wiki](https://github.com/mattem/Formation/wiki) for more options and examples.
  
 
 ## Credits
