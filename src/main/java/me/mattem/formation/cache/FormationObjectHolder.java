@@ -17,6 +17,10 @@ public class FormationObjectHolder {
 	public String getObjectName(){ return this.objectName; }
 	public void setObjectName(String objectName){ this.objectName = objectName; }
 	
+	private String className;
+	public String getClassName() { return this.className; }
+	public void setClassName(String className){ this.className = className; }
+	
 	private List<ObjectPropertyHolder> propertyHolders  = new ArrayList<ObjectPropertyHolder>();
 	public List<ObjectPropertyHolder> getPropertyHolders(){ return this.propertyHolders; }
 	public void setPropertyHolders(List<ObjectPropertyHolder> propertyHolders){ this.propertyHolders = propertyHolders; }

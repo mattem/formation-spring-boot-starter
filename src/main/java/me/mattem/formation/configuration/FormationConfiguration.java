@@ -1,7 +1,6 @@
 package me.mattem.formation.configuration;
 
 import me.mattem.formation.SimpleCorsFilter;
-import me.mattem.formation.cache.FormationObjectCache;
 import me.mattem.formation.processors.DefaultFormationObjectProcessor;
 import me.mattem.formation.processors.FormationObjectProcessor;
 import me.mattem.formation.resolvers.AnnotationDrivenCandidateResolver;
@@ -16,7 +15,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan(basePackages="com.jarvis.formation")
+@ComponentScan(basePackages="me.mattem.formation")
 public class FormationConfiguration {
 	
 	@Bean
@@ -37,8 +36,8 @@ public class FormationConfiguration {
 	
 	@Bean
 	@ConditionalOnMissingBean
-	public FormationObjectProcessor objectProcessor(FormationObjectScannerResult scannerResult, FormationObjectCache objectCache){
-		return new DefaultFormationObjectProcessor(scannerResult, objectCache);
+	public FormationObjectProcessor objectProcessor(){
+		return new DefaultFormationObjectProcessor();
 	}
 	
 	@Bean

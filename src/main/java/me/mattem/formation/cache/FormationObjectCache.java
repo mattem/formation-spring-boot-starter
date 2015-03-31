@@ -10,19 +10,24 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class FormationObjectCache {
-	private Map<String, FormationObjectHolder> cache = new HashMap<String, FormationObjectHolder>();
+	private Map<String, FormationObjectHolder> namedCache = new HashMap<String, FormationObjectHolder>();
+	private Map<String, FormationObjectHolder> classedCache = new HashMap<String, FormationObjectHolder>();
 	private Map<String, List<FormationObjectHolder>> categoryForType = new HashMap<String, List<FormationObjectHolder>>();
 	
 	public Map<String, FormationObjectHolder> read(){
-		return Collections.unmodifiableMap(cache);
+		return Collections.unmodifiableMap(namedCache);
 	}
 	
 	public void putObjectHolder(FormationObjectHolder objectHolder){
-		cache.put(objectHolder.getObjectName(), objectHolder);
+		namedCache.put(objectHolder.getObjectName(), objectHolder);
+		classedCache.put(objectHolder.getClassName(), objectHolder);
 	}
 	
 	public FormationObjectHolder getObjectHolder(String objectName){
-		return cache.get(objectName);
+		FormationObjectHolder objectHolder = namedCache.get(objectName);
+		if(objectHolder == null)
+			objectHolder = classedCache.get(objectName);
+		return objectHolder;
 	}
 	
 	public List<FormationObjectHolder> getCategory(String typeCategory){
@@ -37,7 +42,8 @@ public class FormationObjectCache {
 	}
 	
 	public void clear(){
-		cache.clear();
+		namedCache.clear();
+		classedCache.clear();
 		categoryForType.clear();
 	}
 }

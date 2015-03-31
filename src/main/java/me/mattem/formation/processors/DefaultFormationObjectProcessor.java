@@ -3,38 +3,28 @@ package me.mattem.formation.processors;
 import java.lang.reflect.GenericArrayType;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.lang.reflect.WildcardType;
-import java.util.Collection;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import me.mattem.formation.annotations.FormationExclude;
 import me.mattem.formation.annotations.FormationInclude;
 import me.mattem.formation.annotations.FormationInterface;
 import me.mattem.formation.annotations.FormationMap;
-import me.mattem.formation.cache.FormationObjectCache;
 import me.mattem.formation.cache.FormationObjectHolder;
 import me.mattem.formation.cache.FormationObjectHolder.ObjectPropertyHolder;
 import me.mattem.formation.cache.FormationObjectHolder.ObjectPropertyTypeDescriptor;
 import me.mattem.formation.cache.objectdescriptors.EnumObjectPropertyDescriptor;
 import me.mattem.formation.cache.objectdescriptors.InterfaceObjectPropertyDescriptor;
 import me.mattem.formation.cache.objectdescriptors.MapObjectPropertyDescriptor;
-import me.mattem.formation.scanners.FormationObjectScannerResult;
 
-import org.apache.commons.lang3.ClassUtils;
 import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.util.Assert;
 import org.springframework.util.ReflectionUtils;
 
 public class DefaultFormationObjectProcessor extends AbstractFormationObjectProcessor {
-	
-	public DefaultFormationObjectProcessor(FormationObjectScannerResult scannerResult, FormationObjectCache objectCache) {
-		super(scannerResult, objectCache);
-	}
 	
 	@Override
 	public boolean canProcessClass(Class<?> clazz) { return true; }
@@ -61,8 +51,11 @@ public class DefaultFormationObjectProcessor extends AbstractFormationObjectProc
 		boolean searchHierarchy = anno.inherit();
 		FormationObjectHolder objHolder = new FormationObjectHolder();
 		
-		String formationObjectName = resolveObjectName(clazz.getSimpleName(), anno);
+		String formationObjectName = resolveObjectName(clazz, anno);
+		this.isNameSafe(clazz, formationObjectName);
 		objHolder.setObjectName(formationObjectName);
+		
+		objHolder.setClassName(clazz.getName());
 		
 		ReflectionUtils.doWithMethods(clazz, new ReflectionUtils.MethodCallback() {
 			@Override
@@ -94,8 +87,12 @@ public class DefaultFormationObjectProcessor extends AbstractFormationObjectProc
 	private FormationObjectHolder handleEnumClass(Class<?> clazz) {
 		FormationInclude anno = AnnotationUtils.findAnnotation(clazz, FormationInclude.class);
 		FormationObjectHolder objHolder = new FormationObjectHolder();		
-		String formationObjectName = resolveObjectName(clazz.getSimpleName(), anno);
+		
+		String formationObjectName = resolveObjectName(clazz, anno);
+		this.isNameSafe(clazz, formationObjectName);
 		objHolder.setObjectName(formationObjectName);
+		
+		objHolder.setClassName(clazz.getName());
 		
 		try{
 			Method toString = clazz.getMethod("toString");
@@ -135,8 +132,8 @@ public class DefaultFormationObjectProcessor extends AbstractFormationObjectProc
 		ObjectPropertyHolder propHolder = new ObjectPropertyHolder();
 		propHolder.setProperyName(resolveProperyName(method.getName()));
 		
-		propHolder.setPropertyGeneralType(returnType.getSimpleName());
-		propHolder.setPropertyTypeDescriptor(this.resolvePropertyTypeDescriptor(method));
+		propHolder.setPropertyGeneralType(resolveFormationClassName(returnType));
+		propHolder.setPropertyTypeDescriptor(resolvePropertyTypeDescriptor(method));
 			
 		if(returnType.isAssignableFrom(Map.class)){
 			propHolder.setObjectPropertyDescriptor(mapDescriptor(clazz, method));
@@ -152,20 +149,6 @@ public class DefaultFormationObjectProcessor extends AbstractFormationObjectProc
 				+ "to formation object ["+formationObjectName+"]");
 		
 		return propHolder;
-	}
-	
-	private boolean isTypeListAnnotationNeeded(Class<?> clazz){
-		if(ClassUtils.isPrimitiveOrWrapper(clazz) ||
-			clazz.isAssignableFrom(List.class) || 
-			clazz.isAssignableFrom(Collection.class) || 
-			clazz.isAssignableFrom(Map.class) ||
-			clazz.isAssignableFrom(Set.class)){
-			return false;
-		}else if(Modifier.isAbstract(clazz.getModifiers()) 
-				|| Modifier.isInterface(clazz.getModifiers())){
-			return true;
-		}
-		return false;
 	}
 	
 	private MapObjectPropertyDescriptor mapDescriptor(Class<?> clazz, Method method){
@@ -198,7 +181,7 @@ public class DefaultFormationObjectProcessor extends AbstractFormationObjectProc
 		ObjectPropertyTypeDescriptor typeDescriptor = new ObjectPropertyTypeDescriptor();
 		
 		if (type instanceof Class){
-			typeDescriptor.addGeneralType(((Class<?>) type).getSimpleName());
+			typeDescriptor.addGeneralType(resolveFormationClassName((Class<?>) type));
 		
 		} else if (type instanceof ParameterizedType){
 		    ParameterizedType pt = (ParameterizedType)type;
@@ -212,8 +195,6 @@ public class DefaultFormationObjectProcessor extends AbstractFormationObjectProc
 		    for (Type  t : pt.getActualTypeArguments()){
 		    	typeDescriptor.addInnerType(this.analyseType(t));
 		    }
-
-		    
 		} else if (type instanceof TypeVariable<?>) {
 		    TypeVariable<?> v = (TypeVariable<?>)type;
 		    typeDescriptor.addGeneralType(v.getName());
@@ -235,6 +216,15 @@ public class DefaultFormationObjectProcessor extends AbstractFormationObjectProc
 			typeDescriptor.setUnknownType(true);
 		}
 		return typeDescriptor;
+	}
+	
+	private void isNameSafe(Class<?> clazz, String name) throws IllegalArgumentException {
+		Assert.hasText(name, "Name for Formation object ["+clazz.getName()+"] must contain at least one non whitespace character");
+		if(objectCache.read().containsKey(name)){
+			FormationObjectHolder clash = objectCache.read().get(name);
+			throw new IllegalArgumentException("Formation object ["+clazz.getName()+"] produced a name clash. "
+					+ "["+name+"] is already in use by ["+clash.getClassName()+"]");
+		}
 	}
 	
 }

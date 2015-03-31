@@ -16,10 +16,8 @@ public final class FormationContext {
 	private final List<Class<?>> classes;
 	public List<Class<?>> getClasses() { return classes; }
 	
-	public FormationContext(List<String> basePackages, List<Class<?>> classes){
-		this.basePackages = basePackages;
-		this.classes = classes;
-	}
+	private final boolean guaranteedUniqueClassNames;
+	public boolean isGuaranteedUniqueClassNames(){ return guaranteedUniqueClassNames; }
 	
 	public FormationContext(EnableFormation enableFormation, Class<?> containingClass){
 		Assert.notNull(enableFormation, "EnableFormation annotation must not be null");
@@ -32,6 +30,7 @@ public final class FormationContext {
 			basePackages.add(containingClass.getPackage().getName());
 		}
 		
+		this.guaranteedUniqueClassNames = enableFormation.uniqueClassNames();
 	}
 
 }

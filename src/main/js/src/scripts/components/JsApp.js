@@ -123,10 +123,9 @@ var Formation = React.createClass({
 				case 'String':
 					deferred.resolve(t.Str);
 					break;
-				case 'boolean':
+				case 'Boolean':
 					deferred.resolve(t.Bool);
 					break;
-				case 'int':
 				case 'Integer':
 				case 'Long':
 					deferred.resolve(t.Num);
