@@ -70,8 +70,7 @@ public class DefaultFormationObjectProcessor extends AbstractFormationObjectProc
 						if(propHolder != null) objHolder.addPropertyHolder(propHolder);
 					}
 				}else{
-					if(logger.isTraceEnabled())
-						logger.trace("Ignoring method ["+method.getName()+"] on formation object ["+formationObjectName+"]");
+					logger.debug("Ignoring method ["+method.getName()+"] on formation object ["+formationObjectName+"]");
 				}
 				
 			}
