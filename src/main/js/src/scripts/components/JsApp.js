@@ -138,11 +138,13 @@ var Formation = React.createClass({
 				case 'Map':
 					var entry = {},
 					q1 = this.resolveType(tDescriptor.innerTypes[0].generalTypes[0], tDescriptor.innerTypes[0], pDescriptor),
-					q2 = this.resolveType(tDescriptor.innerTypes[1].generalTypes[0], tDescriptor.innerTypes[1], pDescriptor);
+					q2 = this.resolveType(tDescriptor.innerTypes[1].generalTypes[0], tDescriptor.innerTypes[1], pDescriptor),
 
-					//var k = pDescriptor.mapKeyLabel || 'Key', v = pDescriptor.mapValueLabel || 'Value';
-					q1.done(function(key){ entry['Key'] = key });
-					q2.done(function(value){ entry['Value'] = value });
+					k = pDescriptor === undefined ? 'Key' : pDescriptor.mapKeyLabel,
+					v = pDescriptor === undefined ? 'Value' : pDescriptor.mapValueLabel;
+
+					q1.done(function(key){ entry[k] = key });
+					q2.done(function(value){ entry[v] = value });
 
 					$.when(q1, q2).then(function(){
 						console.log(entry);
