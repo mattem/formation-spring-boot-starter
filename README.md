@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/mattem/Formation.svg?branch=master)](https://travis-ci.org/mattem/Formation)
 
+> Formation is currently under development, so not all features listed may not work as advertised 
+
 ### What is Formation?
 Formation is a Spring Boot starter that helps build dynamic forms for your web front end. It will find and analyse your projects Pojo, or any object you point it to, and provide a form description that can be passed to Formations front end processing. 
 
