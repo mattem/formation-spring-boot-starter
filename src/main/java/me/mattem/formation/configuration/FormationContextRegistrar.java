@@ -35,6 +35,7 @@ public class FormationContextRegistrar {
 		EnableFormation enableFormation = AnnotationUtils.findAnnotation(bean.getClass(), EnableFormation.class);
 		if(enableFormation != null){
 			formationContext = new FormationContext(enableFormation, bean.getClass());
+			//applicationContext.getAutowireCapableBeanFactory().applyBeanPropertyValues(formationContext, "formationContext");
 		}
 	}
 

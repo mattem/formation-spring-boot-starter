@@ -6,6 +6,8 @@ import java.util.List;
 
 import me.mattem.formation.EnableFormation;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.util.Assert;
 
 public final class FormationContext {
@@ -18,6 +20,10 @@ public final class FormationContext {
 	
 	private final boolean guaranteedUniqueClassNames;
 	public boolean isGuaranteedUniqueClassNames(){ return guaranteedUniqueClassNames; }
+	
+	private String isSomething;
+	public String isSomething(){ return this.isSomething; }
+	public void setSomething(String isSomething){ this.isSomething = isSomething; }
 	
 	public FormationContext(EnableFormation enableFormation, Class<?> containingClass){
 		Assert.notNull(enableFormation, "EnableFormation annotation must not be null");
