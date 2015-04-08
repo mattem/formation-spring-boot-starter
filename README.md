@@ -28,7 +28,7 @@ Or ignore a field on an object
 Refer to the [formation-spring-boot-starter Wiki](https://github.com/mattem/formation-spring-boot-starter/wiki) for more options and examples.
 
 ### Frontend UI
-_Formation_ currently has a UI helper for projects using AngularJS. To use this, simply pass the name of the java object to the _formation_ directive.
+_Formation_ currently has a directive for projects using AngularJS. To use this, simply pass the name of the java object to the _formation_ directive.
 
 ```html
 <formation domain="'MyJavaObject'"></formation>
