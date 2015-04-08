@@ -1,6 +1,4 @@
-# Formation
-
-[![Build Status](https://travis-ci.org/mattem/Formation.svg?branch=master)](https://travis-ci.org/mattem/Formation)
+# formation-spring-boot-starter
 
 > Formation is currently under development, so not all features listed may not work as advertised 
 
@@ -27,21 +25,15 @@ Or ignore a field on an object
 @FormationExclude
 ```
 
+Refer to the [formation-spring-boot-starter Wiki](https://github.com/mattem/formation-spring-boot-starter/wiki) for more options and examples.
+
 ### Frontend UI
-_Formation_ currently has a UI helper for projects using ReactJS. To use this, simply pass the name of the java object to the _Formation_ class.
+_Formation_ currently has a UI helper for projects using AngularJS. To use this, simply pass the name of the java object to the _formation_ directive.
 
 ```html
-<Formation domain={this.state.domainName}/>
+<formation domain="'MyJavaObject'"></formation>
 ```
-
-An AngularJS helper is _coming soon..._
-
-Refer to the [Formation Wiki](https://github.com/mattem/Formation/wiki) for more options and examples.
- 
-
-## Credits
-
-ReactJS Form Building: [tcomb-form](https://github.com/gcanti/tcomb-form)
+Head over to the [ng-formation](https://github.com/mattem/ng-formation) project to see more info on how to use the _formation_ directive
 
 ## License
 
