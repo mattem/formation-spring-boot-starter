@@ -24,8 +24,16 @@ import org.springframework.context.annotation.Import;
 @Import({FormationConfiguration.class})
 public @interface EnableFormation {
 	
+	/**
+	 * A list of base packages to scan, if none are supplied, then the package of the class the 
+	 * annotation is applied to will be used. 
+	 */
 	String[] basePackages() default {};
 	
+	/**
+	 * A list of classes that are to be processed by Formation. 
+	 * These classes are in addition to classes found via package scanning. 
+	 */
 	Class<?>[] classes() default {};
 	
 	/**
