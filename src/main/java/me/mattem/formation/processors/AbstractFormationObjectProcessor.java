@@ -61,7 +61,7 @@ public abstract class AbstractFormationObjectProcessor implements FormationObjec
 			return false;
 		}else{
 			for(Annotation a : annotations){
-				if(a.annotationType().getName().startsWith("com.jarvis.formation.annotations"))
+				if(a.annotationType().getName().startsWith("me.mattem.formation.annotations"))
 					return true;
 			}
 		}
