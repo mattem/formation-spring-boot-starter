@@ -1,5 +1,7 @@
 # formation-spring-boot-starter
 
+[![Build Status](https://travis-ci.org/mattem/formation-spring-boot-starter.svg?branch=master)](https://travis-ci.org/mattem/formation-spring-boot-starter)
+
 > Formation is currently under development, so not all features listed may not work as advertised 
 
 ### What is Formation?
