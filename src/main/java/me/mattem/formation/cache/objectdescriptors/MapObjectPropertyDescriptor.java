@@ -1,9 +1,7 @@
 package me.mattem.formation.cache.objectdescriptors;
 
-import me.mattem.formation.annotations.FormationInclude;
 import me.mattem.formation.configuration.FormationDefaults;
 
-@FormationInclude
 public class MapObjectPropertyDescriptor extends AbstractObjectPropertyDescriptor {
 	private String mapKeyLabel = FormationDefaults.MAP_KEY_LABEL;
 	public String getMapKeyLabel(){ return this.mapKeyLabel; }

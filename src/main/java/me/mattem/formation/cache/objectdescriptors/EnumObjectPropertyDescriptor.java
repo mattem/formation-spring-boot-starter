@@ -3,9 +3,6 @@ package me.mattem.formation.cache.objectdescriptors;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.mattem.formation.annotations.FormationInclude;
-
-@FormationInclude(typeCategories={"ObjectPropertyDescriptors"})
 public class EnumObjectPropertyDescriptor extends AbstractObjectPropertyDescriptor {
 	private List<String> values;
 	public void setValues(List<String> values){ this.values = values; }

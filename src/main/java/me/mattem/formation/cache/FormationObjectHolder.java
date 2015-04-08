@@ -3,14 +3,12 @@ package me.mattem.formation.cache;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.mattem.formation.annotations.FormationInclude;
 import me.mattem.formation.annotations.FormationInterface;
 import me.mattem.formation.cache.objectdescriptors.AbstractObjectPropertyDescriptor;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-@FormationInclude
 @JsonInclude(Include.NON_NULL)
 public class FormationObjectHolder {
 	private String objectName;
@@ -26,7 +24,6 @@ public class FormationObjectHolder {
 	public void setPropertyHolders(List<ObjectPropertyHolder> propertyHolders){ this.propertyHolders = propertyHolders; }
 	public void addPropertyHolder(ObjectPropertyHolder propertyHolder){ propertyHolders.add(propertyHolder); }
 	
-	@FormationInclude
 	@JsonInclude(Include.NON_NULL)
 	public static class ObjectPropertyHolder {
 		private String properyName;
@@ -48,7 +45,6 @@ public class FormationObjectHolder {
 	}
 	
 	@JsonInclude(Include.NON_NULL)
-	@FormationInclude
 	public static class ObjectPropertyTypeDescriptor {
 		private List<String> generalTypes;
 		public List<String> getGeneralTypes() { return generalTypes; }
