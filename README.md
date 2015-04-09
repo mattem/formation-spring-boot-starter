@@ -35,6 +35,10 @@ _Formation_ currently has a directive for projects using AngularJS. To use this,
 ```html
 <formation domain="'MyJavaObject'"></formation>
 ```
+Example simple form built using [formation-spring-boot-starter](https://github.com/mattem/formation-spring-boot-starter) and [ng-formation](https://github.com/mattem/ng-formation)
+
+[![](https://dl.dropboxusercontent.com/u/1973136/Formation/images/example-person-expanded-form.png)](https://dl.dropboxusercontent.com/u/1973136/Formation/images/example-person-expanded-form.png)
+
 Head over to the [ng-formation](https://github.com/mattem/ng-formation) project to see more info on how to use the _formation_ directive
 
 ## License
