@@ -8,9 +8,12 @@ import me.mattem.formation.annotations.FormationInclude;
 @FormationInclude
 public class FormationMapCalibration {
 	
-	public Map<String, String> stringStringMap;
-	public Map<Integer, Integer> integerIntegerMap;
-	public Map<Integer, List<String>> integerListMap;
+	private Map<String, String> stringStringMap;
+	private Map<Integer, Integer> integerIntegerMap;
+	private Map<Integer, List<String>> integerListMap;
+	
+	// Interesting things in maps
+	private Map<FormationEnumCalibration, String> enumStringMap;
 	
 	public Map<String, String> getStringStringMap() {
 		return stringStringMap;
@@ -29,5 +32,11 @@ public class FormationMapCalibration {
 	}
 	public void setIntegerListMap(Map<Integer, List<String>> integerListMap) {
 		this.integerListMap = integerListMap;
+	}
+	public Map<FormationEnumCalibration, String> getEnumStringMap() {
+		return enumStringMap;
+	}
+	public void setEnumStringMap(Map<FormationEnumCalibration, String> enumStringMap) {
+		this.enumStringMap = enumStringMap;
 	}
 }

@@ -3,14 +3,18 @@ package me.mattem.formation.calibration;
 import java.util.List;
 import java.util.Map;
 
+import me.mattem.formation.annotations.FormationExclude;
 import me.mattem.formation.annotations.FormationInclude;
 
 @FormationInclude
 public class FormationListCalibration {
 	//public List<?> genericList;
-	public List<String> stringList;
-	public List<Map<String, String>> mapList;
-	public List<List<String>> listStringList;
+	private List<String> stringList;
+	private List<Map<String, String>> mapList;
+	private List<List<String>> listStringList;
+	private List<FormationListCalibration> recursiveList;
+	
+	private String debugString;
 
 	public List<String> getStringList() {
 		return stringList;
@@ -34,6 +38,22 @@ public class FormationListCalibration {
 
 	public void setListStringList(List<List<String>> listStringList) {
 		this.listStringList = listStringList;
+	}
+	
+	public List<FormationListCalibration> getRecursiveList() {
+		return recursiveList;
+	}
+
+	public void setRecursiveList(List<FormationListCalibration> recursiveList) {
+		this.recursiveList = recursiveList;
+	}
+
+	public String getDebugString() {
+		return debugString;
+	}
+
+	public void setDebugString(String debugString) {
+		this.debugString = debugString;
 	}
 	
 }

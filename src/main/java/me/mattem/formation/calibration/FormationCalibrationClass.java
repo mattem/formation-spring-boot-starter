@@ -4,12 +4,19 @@ import me.mattem.formation.annotations.FormationInclude;
 
 @FormationInclude
 public class FormationCalibrationClass {
+	private FormationStringCalibrationClass stringCalibrationClass;
 	private FormationBooleanCalibrationClass booleanCalibrationClass;
 	private FormationListCalibration listCalibration;
 	private FormationMapCalibration mapCalibration;
 	private FormationInterfaceCalibrationClass interfaceCalibration;
 	private FormationRecursiveCalibrationClass recursiveCalibrationClass;
 	
+	public FormationStringCalibrationClass getStringCalibrationClass() {
+		return stringCalibrationClass;
+	}
+	public void setStringCalibrationClass(FormationStringCalibrationClass stringCalibrationClass) {
+		this.stringCalibrationClass = stringCalibrationClass;
+	}
 	public FormationBooleanCalibrationClass getBooleanCalibrationClass() {
 		return booleanCalibrationClass;
 	}
