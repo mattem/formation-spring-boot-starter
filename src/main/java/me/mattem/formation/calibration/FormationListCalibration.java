@@ -3,7 +3,6 @@ package me.mattem.formation.calibration;
 import java.util.List;
 import java.util.Map;
 
-import me.mattem.formation.annotations.FormationExclude;
 import me.mattem.formation.annotations.FormationInclude;
 
 @FormationInclude
