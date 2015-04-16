@@ -12,8 +12,10 @@ import me.mattem.formation.EnableFormation;
 import me.mattem.formation.cache.FormationObjectCache;
 import me.mattem.formation.cache.FormationObjectHolder;
 import me.mattem.formation.cache.FormationObjectHolder.ObjectPropertyHolder;
+import me.mattem.formation.cache.FormationObjectHolder.ObjectPropertyTypeDescriptor;
 import me.mattem.formation.calibration.FormationBooleanCalibrationClass;
 import me.mattem.formation.calibration.FormationEnumCalibration;
+import me.mattem.formation.calibration.FormationListCalibration;
 import me.mattem.formation.calibration.FormationStringCalibrationClass;
 import me.mattem.formation.configuration.FormationContext;
 
@@ -44,7 +46,6 @@ public class DefaultFormationObjectProcessorTest {
 		assertEquals("Formation String Calibration Class", holder.getObjectName());
 		assertEquals(FormationStringCalibrationClass.class.getName(), holder.getClassName());
 		
-		assertEquals(2, holder.getPropertyHolders().size());
 		assertTrue(hasPropertyOfType(holder.getPropertyHolders(), "SimpleString", "String"));
 		assertTrue(hasPropertyOfType(holder.getPropertyHolders(), "SimpleStringTwo", "String"));
 	}
@@ -57,7 +58,6 @@ public class DefaultFormationObjectProcessorTest {
 		assertEquals("Formation Boolean Calibration Class", holder.getObjectName());
 		assertEquals(FormationBooleanCalibrationClass.class.getName(), holder.getClassName());
 		
-		assertEquals(2, holder.getPropertyHolders().size());
 		assertTrue(hasPropertyOfType(holder.getPropertyHolders(), "Something", "Boolean"));
 		assertTrue(hasPropertyOfType(holder.getPropertyHolders(), "IsSomethingBoxed", "Boolean"));
 	}
@@ -76,6 +76,46 @@ public class DefaultFormationObjectProcessorTest {
 		List<ObjectPropertyHolder> propertyHolders = holder.getPropertyHolders();
 		assertNotNull(propertyHolders);
 		assertTrue(hasEnumValues(propertyHolders.get(0), "One", "Two", "Three"));
+	}
+	
+	@Test
+	public void testProcessListCalibrationClass() {
+		FormationObjectHolder holder = objectProcessor.processClass(FormationListCalibration.class);
+		assertNotNull(holder);
+		
+		assertEquals("Formation List Calibration", holder.getObjectName());
+		assertEquals(FormationListCalibration.class.getName(), holder.getClassName());
+		
+		// String List
+		assertTrue(hasPropertyOfType(holder.getPropertyHolders(), "StringList", "List"));
+		ObjectPropertyHolder propHolder = getProperty(holder.getPropertyHolders(), "StringList");
+		assertNotNull(propHolder);
+		
+		List<ObjectPropertyTypeDescriptor> typeDescriptors = propHolder.getPropertyTypeDescriptor().getInnerTypes();
+		assertNotNull(typeDescriptors);
+		assertEquals("String", typeDescriptors.get(0).getGeneralTypes().get(0));
+		
+		// Recursive list
+		assertTrue(hasPropertyOfType(holder.getPropertyHolders(), "RecursiveList", "List"));
+		propHolder = getProperty(holder.getPropertyHolders(), "RecursiveList");
+		assertNotNull(propHolder);
+		
+		typeDescriptors = propHolder.getPropertyTypeDescriptor().getInnerTypes();
+		assertNotNull(typeDescriptors);
+		assertEquals(FormationListCalibration.class.getName(), typeDescriptors.get(0).getGeneralTypes().get(0));
+		
+		// List of List of String
+		assertTrue(hasPropertyOfType(holder.getPropertyHolders(), "ListStringList", "List"));
+		propHolder = getProperty(holder.getPropertyHolders(), "ListStringList");
+		assertNotNull(propHolder);
+		
+		typeDescriptors = propHolder.getPropertyTypeDescriptor().getInnerTypes();
+		assertNotNull(typeDescriptors);
+		assertEquals("List", typeDescriptors.get(0).getGeneralTypes().get(0));
+		
+		typeDescriptors = typeDescriptors.get(0).getInnerTypes();
+		assertNotNull(typeDescriptors);
+		assertEquals("String", typeDescriptors.get(0).getGeneralTypes().get(0));
 	}
 	
 	@EnableFormation(basePackages="me.mattem.test", uniqueClassNames=true)
