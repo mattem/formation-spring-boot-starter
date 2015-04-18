@@ -122,6 +122,8 @@ public abstract class AbstractFormationObjectProcessor implements FormationObjec
 		String formationClassName = "";
 		if(ClassUtils.isPrimitiveOrWrapper(clazz)){
 			formationClassName = getWrapper(clazz).getSimpleName();
+		}else if(clazz == Object.class){
+			formationClassName = "Object"; // Special case for Object
 		}else if(clazz == String.class){
 			formationClassName = "String"; // Special case
 		}else if(clazz.isAssignableFrom(List.class)){

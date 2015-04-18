@@ -16,6 +16,7 @@ import me.mattem.formation.cache.FormationObjectHolder.ObjectPropertyTypeDescrip
 import me.mattem.formation.calibration.FormationBooleanCalibrationClass;
 import me.mattem.formation.calibration.FormationEnumCalibration;
 import me.mattem.formation.calibration.FormationListCalibration;
+import me.mattem.formation.calibration.FormationObjectCalibrationClass;
 import me.mattem.formation.calibration.FormationStringCalibrationClass;
 import me.mattem.formation.configuration.FormationContext;
 
@@ -116,6 +117,12 @@ public class DefaultFormationObjectProcessorTest {
 		typeDescriptors = typeDescriptors.get(0).getInnerTypes();
 		assertNotNull(typeDescriptors);
 		assertEquals("String", typeDescriptors.get(0).getGeneralTypes().get(0));
+	}
+	
+	@Test
+	public void testProcessObjectCalibrationClass() {
+		FormationObjectHolder holder = objectProcessor.processClass(FormationObjectCalibrationClass.class);
+		assertNotNull(holder);
 	}
 	
 	@EnableFormation(basePackages="me.mattem.test", uniqueClassNames=true)

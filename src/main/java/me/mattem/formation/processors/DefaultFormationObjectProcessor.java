@@ -134,7 +134,7 @@ public class DefaultFormationObjectProcessor extends AbstractFormationObjectProc
 		propHolder.setPropertyGeneralType(resolveFormationClassName(returnType));
 		propHolder.setPropertyTypeDescriptor(resolvePropertyTypeDescriptor(method));
 			
-		if(returnType.isAssignableFrom(Map.class)){
+		if(!returnType.equals(Object.class) && returnType.isAssignableFrom(Map.class)){
 			propHolder.setObjectPropertyDescriptor(mapDescriptor(clazz, method));
 		}
 		
