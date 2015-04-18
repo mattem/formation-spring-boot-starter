@@ -10,6 +10,8 @@ public class FormationCalibrationClass {
 	private FormationMapCalibration mapCalibration;
 	private FormationInterfaceCalibrationClass interfaceCalibration;
 	private FormationRecursiveCalibrationClass recursiveCalibrationClass;
+	private FormationEnumCalibration enumCalibration;
+	private FormationObjectCalibrationClass objectCalibrationClass;
 	
 	public FormationStringCalibrationClass getStringCalibrationClass() {
 		return stringCalibrationClass;
@@ -46,5 +48,17 @@ public class FormationCalibrationClass {
 	}
 	public void setRecursiveCalibrationClass(FormationRecursiveCalibrationClass recursiveCalibrationClass) {
 		this.recursiveCalibrationClass = recursiveCalibrationClass;
+	}
+	public FormationEnumCalibration getEnumCalibration() {
+		return enumCalibration;
+	}
+	public void setEnumCalibration(FormationEnumCalibration enumCalibration) {
+		this.enumCalibration = enumCalibration;
+	}
+	public FormationObjectCalibrationClass getObjectCalibrationClass() {
+		return objectCalibrationClass;
+	}
+	public void setObjectCalibrationClass(FormationObjectCalibrationClass objectCalibrationClass) {
+		this.objectCalibrationClass = objectCalibrationClass;
 	}
 }

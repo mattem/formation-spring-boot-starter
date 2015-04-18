@@ -3,6 +3,7 @@ package me.mattem.formation.calibration;
 import java.util.List;
 import java.util.Map;
 
+import me.mattem.formation.annotations.FormationExclude;
 import me.mattem.formation.annotations.FormationInclude;
 
 @FormationInclude
@@ -12,6 +13,7 @@ public class FormationListCalibration {
 	private List<Map<String, String>> mapList;
 	private List<List<String>> listStringList;
 	private List<FormationListCalibration> recursiveList;
+	private List<FormationInterfaceCalibrationClass> interfaceList;
 	
 	private String debugString;
 
@@ -53,6 +55,15 @@ public class FormationListCalibration {
 
 	public void setDebugString(String debugString) {
 		this.debugString = debugString;
+	}
+
+	@FormationExclude // This currently wont work
+	public List<FormationInterfaceCalibrationClass> getInterfaceList() {
+		return interfaceList;
+	}
+
+	public void setInterfaceList(List<FormationInterfaceCalibrationClass> interfaceList) {
+		this.interfaceList = interfaceList;
 	}
 	
 }
