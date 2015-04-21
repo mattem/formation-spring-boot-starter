@@ -11,8 +11,8 @@ import java.util.List;
 import me.mattem.formation.EnableFormation;
 import me.mattem.formation.cache.FormationObjectCache;
 import me.mattem.formation.cache.FormationObjectHolder;
-import me.mattem.formation.cache.FormationObjectHolder.ObjectPropertyHolder;
-import me.mattem.formation.cache.FormationObjectHolder.ObjectPropertyTypeDescriptor;
+import me.mattem.formation.cache.ObjectPropertyDescriptor;
+import me.mattem.formation.cache.ObjectPropertyTypeDescriptor;
 import me.mattem.formation.calibration.FormationBooleanCalibrationClass;
 import me.mattem.formation.calibration.FormationEnumCalibration;
 import me.mattem.formation.calibration.FormationListCalibration;
@@ -74,7 +74,7 @@ public class DefaultFormationObjectProcessorTest {
 		assertEquals(1, holder.getPropertyHolders().size());
 		assertTrue(hasPropertyOfType(holder.getPropertyHolders(), "Formation Enum Calibration", "Enum"));
 		
-		List<ObjectPropertyHolder> propertyHolders = holder.getPropertyHolders();
+		List<ObjectPropertyDescriptor> propertyHolders = holder.getPropertyHolders();
 		assertNotNull(propertyHolders);
 		assertTrue(hasEnumValues(propertyHolders.get(0), "One", "Two", "Three"));
 	}
@@ -89,7 +89,7 @@ public class DefaultFormationObjectProcessorTest {
 		
 		// String List
 		assertTrue(hasPropertyOfType(holder.getPropertyHolders(), "StringList", "List"));
-		ObjectPropertyHolder propHolder = getProperty(holder.getPropertyHolders(), "StringList");
+		ObjectPropertyDescriptor propHolder = getProperty(holder.getPropertyHolders(), "StringList");
 		assertNotNull(propHolder);
 		
 		List<ObjectPropertyTypeDescriptor> typeDescriptors = propHolder.getPropertyTypeDescriptor().getInnerTypes();

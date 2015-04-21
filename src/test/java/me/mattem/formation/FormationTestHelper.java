@@ -6,18 +6,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import me.mattem.formation.cache.FormationObjectHolder.ObjectPropertyHolder;
+import me.mattem.formation.cache.ObjectPropertyDescriptor;
 import me.mattem.formation.cache.objectdescriptors.EnumObjectPropertyDescriptor;
 
 public final class FormationTestHelper {
 
 	private FormationTestHelper(){};
 	
-	public static ObjectPropertyHolder getProperty(List<ObjectPropertyHolder> properties, String propertyName){
+	public static ObjectPropertyDescriptor getProperty(List<ObjectPropertyDescriptor> properties, String propertyName){
 		assertNotNull(propertyName);
 		assertNotNull(properties);
 
-		for(ObjectPropertyHolder prop : properties){
+		for(ObjectPropertyDescriptor prop : properties){
 			if(prop.getProperyName().equals(propertyName)){
 				return prop;
 			}
@@ -25,20 +25,20 @@ public final class FormationTestHelper {
 		return null;
 	}
 	
-	public static boolean hasProperty(List<ObjectPropertyHolder> properties, String propertyName){
+	public static boolean hasProperty(List<ObjectPropertyDescriptor> properties, String propertyName){
 		if(getProperty(properties, propertyName) == null) return false;
 		return true;
 	}
 	
-	public static boolean hasPropertyOfType(List<ObjectPropertyHolder> properties, String propertyName, String generalType){
-		ObjectPropertyHolder oph = getProperty(properties, propertyName);
+	public static boolean hasPropertyOfType(List<ObjectPropertyDescriptor> properties, String propertyName, String generalType){
+		ObjectPropertyDescriptor oph = getProperty(properties, propertyName);
 		if(oph != null){
 			if(oph.getPropertyGeneralType().equals(generalType)) return true;
 		}
 		return false;
 	}
 	
-	public static boolean hasEnumValues(ObjectPropertyHolder property, String... values){
+	public static boolean hasEnumValues(ObjectPropertyDescriptor property, String... values){
 		assertNotNull(property);
 		assertNotNull(values);
 		

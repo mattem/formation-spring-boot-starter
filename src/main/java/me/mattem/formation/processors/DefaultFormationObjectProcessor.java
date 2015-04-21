@@ -14,8 +14,9 @@ import me.mattem.formation.annotations.FormationInclude;
 import me.mattem.formation.annotations.FormationInterface;
 import me.mattem.formation.annotations.FormationMap;
 import me.mattem.formation.cache.FormationObjectHolder;
-import me.mattem.formation.cache.FormationObjectHolder.ObjectPropertyHolder;
-import me.mattem.formation.cache.FormationObjectHolder.ObjectPropertyTypeDescriptor;
+import me.mattem.formation.cache.ObjectDescriptor;
+import me.mattem.formation.cache.ObjectPropertyDescriptor;
+import me.mattem.formation.cache.ObjectPropertyTypeDescriptor;
 import me.mattem.formation.cache.objectdescriptors.EnumObjectPropertyDescriptor;
 import me.mattem.formation.cache.objectdescriptors.InterfaceObjectPropertyDescriptor;
 import me.mattem.formation.cache.objectdescriptors.MapObjectPropertyDescriptor;
@@ -66,7 +67,7 @@ public class DefaultFormationObjectProcessor extends AbstractFormationObjectProc
 						logger.debug("Ignoring method ["+method.getName()+"] on formation object ["+formationObjectName+"] as inherit is false - "
 								+ "Found on ["+method.getDeclaringClass().getName()+"]");
 					}else{
-						ObjectPropertyHolder propHolder = processMethod(anno, clazz, method, formationObjectName);
+						ObjectPropertyDescriptor propHolder = processMethod(anno, clazz, method, formationObjectName);
 						if(propHolder != null) objHolder.addPropertyHolder(propHolder);
 					}
 				}else{
@@ -95,7 +96,7 @@ public class DefaultFormationObjectProcessor extends AbstractFormationObjectProc
 		
 		try{
 			Method toString = clazz.getMethod("toString");
-			ObjectPropertyHolder propHolder = new ObjectPropertyHolder();
+			ObjectPropertyDescriptor propHolder = new ObjectPropertyDescriptor();
 			propHolder.setPropertyGeneralType("Enum");
 			propHolder.setProperyName(formationObjectName);
 			
@@ -118,7 +119,7 @@ public class DefaultFormationObjectProcessor extends AbstractFormationObjectProc
 		return objHolder;
 	}
 	
-	private ObjectPropertyHolder processMethod(FormationInclude classInclude, Class<?> clazz, Method method, String formationObjectName){
+	private ObjectPropertyDescriptor processMethod(FormationInclude classInclude, Class<?> clazz, Method method, String formationObjectName){
 		
 		Class<?> returnType = method.getReturnType();
 		if(isTypeListAnnotationNeeded(returnType) && !hasFormationTypeAnnotation(method)){
@@ -128,7 +129,7 @@ public class DefaultFormationObjectProcessor extends AbstractFormationObjectProc
 			return null; // Don't bother
 		}
 	
-		ObjectPropertyHolder propHolder = new ObjectPropertyHolder();
+		ObjectPropertyDescriptor propHolder = new ObjectPropertyDescriptor();
 		propHolder.setProperyName(resolveProperyName(method.getName()));
 		
 		propHolder.setPropertyGeneralType(resolveFormationClassName(returnType));
