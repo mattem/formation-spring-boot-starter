@@ -7,9 +7,11 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.lang.reflect.WildcardType;
+import java.util.HashSet;
 import java.util.Map;
 
 import me.mattem.formation.annotations.FormationExclude;
+import me.mattem.formation.annotations.FormationField;
 import me.mattem.formation.annotations.FormationInclude;
 import me.mattem.formation.annotations.FormationInterface;
 import me.mattem.formation.annotations.FormationMap;
@@ -24,6 +26,8 @@ import me.mattem.formation.cache.objectdescriptors.MapObjectPropertyDescriptor;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.Assert;
 import org.springframework.util.ReflectionUtils;
+
+import com.google.common.collect.Sets;
 
 public class DefaultFormationObjectProcessor extends AbstractFormationObjectProcessor {
 	
@@ -80,6 +84,13 @@ public class DefaultFormationObjectProcessor extends AbstractFormationObjectProc
 		for(String cat : anno.typeCategories()){
 			objectCache.putCategory(cat, objHolder);
 		}
+		
+		ObjectDescriptor od = new ObjectDescriptor();
+		for(ObjectPropertyDescriptor ph : objHolder.getPropertyHolders()){
+			if(ph.getViews() != null)
+				od.addAllViews(ph.getViews());
+		}
+		objHolder.setObjectDescriptor(od);
 		
 		return objHolder;
 	}
@@ -143,6 +154,21 @@ public class DefaultFormationObjectProcessor extends AbstractFormationObjectProc
 			propHolder.setObjectPropertyDescriptor(interfaceDescriptor(clazz, method));
 			// Override the general type
 			propHolder.setPropertyGeneralType("Interface");
+		}
+		
+		FormationField field = AnnotationUtils.findAnnotation(method, FormationField.class);
+		if(field != null){
+			propHolder.setFieldType(field.fieldType());
+			propHolder.setFieldPattern(field.pattern());
+			propHolder.setRequired(field.required());
+			
+			if(!field.overrideAs().equals(void.class)){
+				propHolder.setPropertyGeneralType(field.overrideAs().getName());
+			}
+			if(field.views().length > 0){
+				HashSet<String> views = Sets.newHashSet(field.views());
+				propHolder.setViews(views);
+			}
 		}
 		
 		logger.debug("Adding property ["+propHolder.getProperyName()+"] of type ["+propHolder.getPropertyGeneralType()+"] "
