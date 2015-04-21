@@ -1,6 +1,7 @@
 package me.mattem.formation.services;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import me.mattem.formation.cache.FormationObjectCache;
@@ -18,6 +19,10 @@ public class FormationService {
 		return cache.getObjectHolder(name);
 	}
 	
+	public Map<String, FormationObjectHolder> getAllObjects(){
+		return cache.read();
+	}
+	
 	public Set<String> getKnownObjectNames(){
 		return cache.read().keySet();
 	}
@@ -28,6 +33,5 @@ public class FormationService {
 
 	public void rebuild() {
 		cache.clear();
-		
 	}
 }

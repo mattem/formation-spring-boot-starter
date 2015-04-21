@@ -1,6 +1,7 @@
 package me.mattem.formation.controllers;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import me.mattem.formation.cache.FormationObjectHolder;
@@ -41,6 +42,12 @@ public class FormationController {
 	public @ResponseBody Set<String> runList(){
 		logger.debug("Formation getting known object list");
 		return formation.getKnownObjectNames();
+	}
+	
+	@RequestMapping(value="/formation/all", method=RequestMethod.GET)
+	public @ResponseBody Map<String, FormationObjectHolder> runFull(){
+		logger.debug("Formation full known object map");
+		return formation.getAllObjects();
 	}
 	
 	@RequestMapping(value="/formation/rebuild", method=RequestMethod.GET)
