@@ -48,7 +48,7 @@ public class DefaultFormationObjectProcessorTest {
 		assertEquals(FormationStringCalibrationClass.class.getName(), holder.getClassName());
 		
 		assertTrue(hasPropertyOfType(holder.getPropertyHolders(), "SimpleString", "String"));
-		assertTrue(hasPropertyOfType(holder.getPropertyHolders(), "SimpleStringTwo", "String"));
+		assertTrue(hasPropertyOfType(holder.getPropertyHolders(), "OverrideString", "me.mattem.formation.calibration.FormationStringCalibrationClass"));
 	}
 	
 	@Test
