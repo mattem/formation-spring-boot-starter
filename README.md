@@ -1,4 +1,5 @@
-# formation-spring-boot-starter
+
+<img src="https://github.com/mattem/formation-spring-boot-starter/blob/master/logo-white.png" width="192">
 
 [![Build Status](https://travis-ci.org/mattem/formation-spring-boot-starter.svg?branch=master)](https://travis-ci.org/mattem/formation-spring-boot-starter)
 
